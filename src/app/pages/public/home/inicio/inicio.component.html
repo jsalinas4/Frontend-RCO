@@ -1,0 +1,96 @@
+
+        <!-- Hero Banner -->
+  <div class="mb-20 relative h-96 md:h-[400px] bg-gray-100 overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20240327/pngtree-abstract-blur-hospital-clinic-counter-interior-defocused-medical-background-image_15646915.jpg'); filter: brightness(0.8);"></div>
+    
+    <!-- Content -->
+    <div class="container mx-auto px-4 h-full flex flex-col items-start pt-20 gap-6 relative z-10">
+      <h1 class="text-white text-3xl md:text-5xl font-bold max-w-3xl">
+        Tu salud bucal, nuestra prioridad — Separa tu cita..
+      </h1>
+      <button class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+              routerLink="/cita">
+        Reservar ahora
+      </button>
+    </div>
+    
+
+  </div>
+      
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 py-10 bg-gray-50 text-center pt-30 pb-30">
+        <!-- Columna 1 -->
+        <div class="flex flex-col items-center">
+          <img src="diente.png" alt="Icono" class="w-24 h-24 object-contain mb-4" />
+          <p class="text-gray-800 font-medium">Servicio especializado</p>
+        </div>
+      
+        <!-- Columna 2 -->
+        <div class="flex flex-col items-center">
+          <img src="sonrisa.png" alt="Icono" class="w-24 h-24 object-contain mb-4" />
+          <p class="text-gray-800 font-medium">Estética y confianza</p>
+        </div>
+      
+        <!-- Columna 3 -->
+        <div class="flex flex-col items-center">
+          <img src="tools.png" alt="Icono" class="w-24 h-24 object-contain mb-4" />
+          <p class="text-gray-800 font-medium">Alta tecnología y especialización</p>
+        </div>
+      </div>
+
+      
+    <div class="gridcard grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 pb-20">
+      <div class="mb-4 p-4 flex items-center justify-center">
+          <p-card [style]="{ width: '22rem', overflow: 'hidden' }">
+              <ng-template #header>
+                  <img alt="Card" class="w-full h-80 object-cover" src="sonrisa4.png" />
+              </ng-template>
+              <ng-template #title>Limpieza dental</ng-template>
+              <p>
+                  Eliminación de placa, sarro y manchas
+              </p>
+              <ng-template #footer>
+                  <div class="flex gap-4 mt-1">
+                      <p-button routerLink="/cita" label="Reservar" severity="secondary" class="w-40" [outlined]="true" styleClass="w-full" />
+
+                  </div>
+              </ng-template>
+          </p-card>
+      </div>
+      <div class="mb-4 p-4 flex items-center justify-center">
+          <p-card [style]="{ width: '22rem', overflow: 'hidden' }">
+              <ng-template #header>
+                  <img alt="Card" class="w-full h-80 object-cover" src="sonrisa2.png" />
+              </ng-template>
+              <ng-template #title>Blanqueamiento dental</ng-template>
+              <p>
+                  Aclara varios tonos del color dental
+              </p>
+              <ng-template #footer>
+                  <div class="flex gap-4 mt-1">
+                      <p-button routerLink="/cita" label="Reservar" severity="secondary" class="w-40" [outlined]="true" styleClass="w-full" />
+
+                  </div>
+              </ng-template>
+          </p-card>
+      </div>
+      <div class="mb-4 p-4 flex items-center justify-center">
+          <p-card [style]="{ width: '22rem', overflow: 'hidden' }">
+              <ng-template #header>
+                  <img alt="Card" class="w-full h-80 object-cover" src="sonrisa3.png" />
+              </ng-template>
+              <ng-template #title>Ortodoncia</ng-template>
+              <p>
+                  Corrección de la posición de los dientes
+              </p>
+              <ng-template #footer>
+                  <div class="flex gap-4 mt-1">
+                      <p-button routerLink="/cita" label="Reservar" severity="secondary" class="w-40" [outlined]="true" styleClass="w-full" />
+
+                  </div>
+              </ng-template>
+          </p-card>
+      </div>
+    </div>
+      

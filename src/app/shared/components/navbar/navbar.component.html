@@ -1,0 +1,59 @@
+<!-- Navbar Container -->
+<div class="bg-gray-100 p-4 shadow-sm">
+  <div class="flex justify-between items-center max-w-7xl mx-auto">
+    
+    <!-- Logo -->
+    <img routerLink="/inicio" src="cv2_logo.png" alt="Image" height="20" class="mb-3 w-20 h-20 cursor-pointer" />
+
+    <!-- Desktop Menu -->
+    <div class="hidden lg:flex bg-white px-6 py-2 rounded-full items-center gap-6">
+      <a routerLink="/inicio" class="bg-cyan-400 text-white px-3 py-1 rounded-full text-sm">Inicio</a>
+      <a routerLink="/servicios" class="text-gray-800 hover:text-cyan-500">Servicios</a>
+      <a routerLink="/servicios" class="text-gray-800 hover:text-cyan-500">Sobre nosotros</a>
+      <a routerLink="/servicios" class="text-gray-800 hover:text-cyan-500">Contactos</a>
+      
+      <!-- Contenedor para usuario y logout -->
+      <div class="flex items-center gap-2">
+        <!-- Icono de usuario -->
+        <button (click)="goToAdmin()" class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center cursor-pointer"
+                pTooltip="{{isAuthenticated ? 'Mi perfil' : 'Iniciar sesión'}}" tooltipPosition="bottom">
+          <i class="pi pi-user text-sm" style="color: black"></i>
+        </button>
+        
+        <!-- Botón de cerrar sesión (solo visible si está autenticado) -->
+        <button *ngIf="isAuthenticated" 
+                (click)="logout()" 
+                class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center cursor-pointer bg-red-50 hover:bg-red-100"
+                pTooltip="Cerrar sesión" tooltipPosition="bottom">
+          <i class="pi pi-sign-out text-sm text-red-500"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button class="lg:hidden p-2" (click)="mobileMenuVisible = !mobileMenuVisible">
+      <i class="pi pi-bars text-xl" style="color: black"></i>
+    </button>
+  </div>
+
+  <!-- Mobile Menu (PrimeNG OverlayPanel o div simple) -->
+  <div *ngIf="mobileMenuVisible" class="lg:hidden mt-4 bg-white rounded-lg p-4 shadow-md mx-4">
+    <a routerLink="/inicio" class="block text-cyan-500 mb-2 font-semibold">Inicio</a>
+    <a routerLink="/servicios" class="block mb-2 text-gray-700">Servicios</a>
+    <a routerLink="/servicios" class="block mb-2 text-gray-700">Sobre nosotros</a>
+    <a routerLink="/servicios" class="block mb-2 text-gray-700">Contactos</a>
+    
+    <div class="flex items-center gap-2 mt-2">
+      <button (click)="goToAdmin()" class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center">
+        <i class="pi pi-user text-sm" style="color: black"></i>
+      </button>
+      
+      <!-- Botón de cerrar sesión en móvil -->
+      <button *ngIf="isAuthenticated" 
+              (click)="logout()" 
+              class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center bg-red-50">
+        <i class="pi pi-sign-out text-sm text-red-500"></i>
+      </button>
+    </div>
+  </div>
+</div>

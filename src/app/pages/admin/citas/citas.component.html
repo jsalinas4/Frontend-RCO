@@ -1,0 +1,57 @@
+<div class="p-4">
+  <h1 class="text-2xl font-bold mb-6">Mis Citas</h1>
+
+  <!-- Filtros -->
+  <div class="mb-6 flex flex-wrap items-center gap-4">
+    <p-dropdown
+      [options]="estadoOptions"
+      [(ngModel)]="estadoSeleccionado"
+      (onChange)="onEstadoChange()"
+      placeholder="Estado"
+      class="w-40"
+    ></p-dropdown>
+  
+    <p-calendar
+      [(ngModel)]="fechaSeleccionada"
+      (onSelect)="onFechaChange()"
+      dateFormat="dd/mm/yy"
+      [showIcon]="true"
+      class="w-44"
+      placeholder="Filtrar por fecha"
+    ></p-calendar>
+  </div>
+  
+  <!-- Estado de carga -->
+  <div *ngIf="cargando" class="flex justify-center my-8">
+    <i class="pi pi-spin pi-spinner text-4xl text-blue-500"></i>
+  </div>
+  
+  <!-- Mensaje de error -->
+  <div *ngIf="error" class="bg-red-100 text-red-700 p-4 rounded-lg mb-6">
+    {{ error }}
+  </div>
+  
+  <!-- Mensaje sin resultados -->
+  <div *ngIf="!cargando && !error && citasFiltradas.length === 0" class="bg-blue-50 text-blue-700 p-6 rounded-lg text-center">
+    No hay citas para mostrar con los filtros seleccionados.
+  </div>
+  
+  <!-- Tarjetas de citas -->
+  <div class="space-y-6" *ngIf="!cargando && citasFiltradas.length > 0">
+    <div *ngFor="let cita of citasFiltradas" class="bg-blue-100 rounded-xl shadow p-6">
+      <h3 class="text-xl font-semibold text-blue-800 mb-2">{{ obtenerHora(cita.appointmentDate) }}</h3>
+      <p><strong>Fecha:</strong> {{ obtenerFecha(cita.appointmentDate) }}</p>
+      <p><strong>Servicio:</strong> {{ cita.service }}</p>
+      <p><strong>Odontólogo:</strong> {{ cita.dentistName }}</p>
+      <p><strong>Estado:</strong> <span [ngClass]="{
+        'text-green-600': cita.status === 'Confirmada',
+        'text-yellow-600': cita.status === 'Pendiente',
+        'text-red-600': cita.status === 'Cancelada',
+        'text-blue-600': cita.status === 'Completada'
+      }">{{ cita.status }}</span></p>
+      <p><strong>Paciente:</strong> {{ cita.patientName }}</p>
+      <button pButton label="Ver más" icon="pi pi-arrow-right" class="mt-3 p-button-sm" 
+              (click)="verDetalleCita(cita.appointmentId)"></button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+.desktop-sidebar {
+  width: 200px;
+  background-color: white;
+  border-right: 1px solid #d9d9d9;
+  padding: 1rem;
+  display: none;
+}
+
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  
+  &:hover {
+    background-color: #f0f0f0;
+  }
+  
+  &.active {
+    background-color: #e0f5ff;
+    color: #03cafc;
+  }
+  
+  i {
+    font-size: 1.25rem;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .desktop-sidebar {
+    display: block;
+  }
+  
+  :host ::ng-deep .p-sidebar {
+    display: none;
+  }
+}

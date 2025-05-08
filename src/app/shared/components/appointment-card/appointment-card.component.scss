@@ -1,0 +1,137 @@
+:host ::ng-deep {
+  .appointment-card {
+    margin-bottom: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+    
+    .p-card-body {
+      padding: 0;
+    }
+    
+    .p-card-content {
+      padding: 0;
+    }
+    
+    .p-card-footer {
+      background-color: #f7fdff;
+      border-top: 1px solid #e0f5ff;
+      padding: 0.75rem 1rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+    
+    .p-button-rounded {
+      background-color: #03cafc;
+      border-color: #03cafc;
+      
+      &:hover {
+        background-color: #02b8e6;
+        border-color: #02b8e6;
+      }
+    }
+  }
+}
+
+.appointment-content {
+  display: flex;
+}
+
+.time-section {
+  background: linear-gradient(to right, #03cafc, #0396fc);
+  color: white;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  .time {
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1;
+  }
+  
+  .period {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}
+
+.details-section {
+  padding: 1.25rem;
+  flex: 1;
+  
+  .date-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    
+    i {
+      color: #03cafc;
+    }
+  }
+  
+  .service-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .service-badge {
+    background-color: #e0f5ff;
+    color: #0396fc;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+  }
+  
+  .status-badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    
+    &.status-active {
+      background-color: #e6f7e6;
+      color: #2e7d32;
+    }
+    
+    &.status-completed {
+      background-color: #e3f2fd;
+      color: #1565c0;
+    }
+    
+    &.status-cancelled {
+      background-color: #ffebee;
+      color: #c62828;
+    }
+  }
+  
+  .dentist-name {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+  
+  .dentist-specialty {
+    font-size: 0.875rem;
+    color: #666;
+  }
+}
+
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+}

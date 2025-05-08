@@ -1,0 +1,160 @@
+<div class="card flex justify-center">
+  <p-stepper [value]="activeIndex" class="w-full" [linear]="true">
+    <p-step-list>
+      <p-step [value]="0">Seleccionar servicio</p-step>
+      <p-step [value]="1">Elegir fecha y hora</p-step>
+      <p-step [value]="2">Redirección</p-step>
+      <p-step [value]="3">Confirmación</p-step>
+    </p-step-list>
+
+    <p-step-panels>
+
+      <!-- Paso 1: Seleccionar servicio -->
+      <p-step-panel [value]="0">
+        <ng-template #content let-activateCallback="activateCallback">
+          <div class="flex flex-col">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div *ngFor="let servicio of servicios; let i = index" class="flex">
+                <div class="bg-white p-4 rounded-l-lg flex items-center justify-center w-20">
+                  <img src="diente1.jpg" alt="Icono dental" class="w-12 h-12 text-blue-800">
+                </div>
+                <div class="bg-sky-100 rounded-r-lg p-4 flex-1 flex flex-col justify-center relative">
+                  <h3 class="text-gray-800 font-medium">{{ servicio.nombre }}</h3>
+                  <p class="text-gray-700">Costo: S/ {{ servicio.costo }}</p>
+                  <div class="absolute right-4">
+                    <p-radioButton 
+                      [inputId]="'servicio_' + i" 
+                      name="servicioGroup" 
+                      [value]="servicio" 
+                      [(ngModel)]="selectedServicio">
+                    </p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-end mt-6">
+              <p-button label="Siguiente" icon="pi pi-arrow-right" iconPos="right" 
+                        (onClick)="activateCallback(1)" [disabled]="!selectedServicio"></p-button>
+            </div>
+          </div>
+        </ng-template>
+      </p-step-panel>
+
+      <!-- Paso 2: Elegir fecha y hora -->
+      <p-step-panel [value]="1">
+        <ng-template #content let-activateCallback="activateCallback">
+          <div class="flex flex-col">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div class="flex justify-center">
+                <div>
+                  <h2 class="text-lg font-semibold mb-2 text-center">Selecciona una fecha:</h2>
+                  <p-calendar [(ngModel)]="selectedDate" [inline]="false" 
+                              (onSelect)="loadAvailableSlots()" 
+                              [minDate]="minDate"></p-calendar>
+                </div>
+              </div>
+              <div class="flex flex-col">
+                <h2 class="text-lg font-semibold mb-2 text-center">Horarios disponibles:</h2>
+                <div *ngIf="selectedDate && timeSlots.length > 0" class="mt-4">
+                  <div class="grid grid-cols-4 gap-4 font-medium text-gray-700 mb-2 px-4">
+                    <div>Hora</div>
+                    <div>Estado</div>
+                    <div colspan="2">Selección</div>
+                  </div>
+                  
+                  <div *ngFor="let slot of timeSlots; let i = index" 
+                       class="border border-sky-200 rounded-lg mb-3 p-4 grid grid-cols-4 items-center"
+                       [ngClass]="{'opacity-50': !slot.disponible}">
+                    <div class="text-gray-800">{{ slot.hora }}</div>
+                    <div class="text-gray-800">
+                      <span *ngIf="slot.disponible" class="text-green-600">Disponible</span>
+                      <span *ngIf="!slot.disponible" class="text-red-600">Ocupado</span>
+                    </div>
+                    <div class="flex justify-center col-span-2">
+                      <p-radioButton 
+                        [inputId]="'horario_' + i" 
+                        name="horarioGroup" 
+                        [value]="slot" 
+                        [(ngModel)]="selectedHorario"
+                        [disabled]="!slot.disponible">
+                      </p-radioButton>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="selectedDate && timeSlots.length === 0" class="mt-4 text-center text-gray-600">
+                  Cargando horarios disponibles...
+                </div>
+                <div *ngIf="!selectedDate" class="mt-4 text-center text-gray-600">
+                  Selecciona una fecha para ver los horarios disponibles
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-between mt-6">
+              <p-button label="Atrás" icon="pi pi-arrow-left" (onClick)="activateCallback(0)" class="p-button-secondary"></p-button>
+              <p-button label="Siguiente" icon="pi pi-arrow-right" iconPos="right"
+                        (onClick)="onNextStep(2); activateCallback(2)" 
+                        [disabled]="!selectedDate || !selectedHorario"></p-button>
+            </div>
+          </div>
+        </ng-template>
+      </p-step-panel>
+
+      <!-- Paso 3: Redirección a Pago -->
+      <p-step-panel [value]="2">
+        <ng-template #content let-activateCallback="activateCallback">
+          <div class="flex flex-col items-center justify-center py-8">
+            <div *ngIf="isLoading" class="text-center mb-8">
+              <i class="pi pi-spin pi-spinner text-4xl text-sky-500 mb-4"></i>
+              <p class="text-lg font-semibold">Procesando tu cita...</p>
+              <p class="text-gray-600 mt-2">Serás redirigido a la página de pago en unos momentos.</p>
+            </div>
+            
+            <div *ngIf="!isLoading && createdAppointment" class="w-full max-w-md">
+              <h2 class="text-xl font-bold mb-4 text-center">Resumen de tu cita</h2>
+              <app-appointment-card [appointment]="createdAppointment"></app-appointment-card>
+              
+              <div class="mt-6 text-center">
+                <p class="text-gray-600 mb-4">
+                  Si no eres redirigido automáticamente, haz clic en el botón a continuación:
+                </p>
+                <a [href]="paymentUrl" target="_blank" class="inline-block">
+                  <p-button label="Ir a la página de pago" icon="pi pi-credit-card" class="p-button-primary"></p-button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <ng-container *ngIf="triggerRedirect(activateCallback)"></ng-container>
+        </ng-template>
+      </p-step-panel>
+
+      <!-- Paso 4: Confirmación -->
+      <p-step-panel [value]="3">
+        <ng-template #content>
+          <div class="flex flex-col items-center">
+            <p-card styleClass="confirmation-card text-center shadow-3 p-6 border-round"
+                    [style]="{ height: '350px', maxWidth: '500px', width: '100%' }">
+              <div class="flex items-center mb-4 justify-center">
+                <i class="pi pi-check-circle text-green-500 text-6xl mr-4"></i>
+                <div class="flex flex-col items-start">
+                  <div class="flex items-center">
+                    <span class="font-bold text-2xl">Cita completada</span>
+                  </div>
+                </div>
+              </div>
+              <div class="text-left mb-6">
+                <p class="mb-2"><strong>Servicio:</strong> {{ selectedServicio?.nombre }}</p>
+                <p class="mb-2"><strong>Fecha:</strong> {{ selectedDate | date:'dd/MM/yyyy' }}</p>
+                <p class="mb-2"><strong>Hora:</strong> {{ selectedHorario?.hora }}</p>
+                <p class="mb-0">Revisa los detalles en el panel de administración</p>
+              </div>
+              <div class="flex justify-end">
+                <p-button label="Volver al inicio" styleClass="p-button-rounded" routerLink="/admin/citas"></p-button>
+              </div>
+            </p-card>
+          </div>
+        </ng-template>
+      </p-step-panel>
+
+    </p-step-panels>
+  </p-stepper>
+</div>

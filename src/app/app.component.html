@@ -1,1 +1,17 @@
-<router-outlet></router-outlet>
+<!-- Menú fijo arriba -->
+<app-navbar *ngIf="!isAuthRoute()"></app-navbar>
+
+<!-- Contenido dinámico abajo 
+<div class="mt-5">
+  <app-appointments></app-appointments>
+</div>-->
+
+<div class="flex flex-1">
+
+  
+  <div class="flex-1 p-4 overflow-auto">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<app-footer *ngIf="!isAuthRoute()"></app-footer>

@@ -1,0 +1,13 @@
+export * from './appointmentController.service';
+import { AppointmentControllerService } from './appointmentController.service';
+export * from './authController.service';
+import { AuthControllerService } from './authController.service';
+export * from './clinicalRecordController.service';
+import { ClinicalRecordControllerService } from './clinicalRecordController.service';
+export * from './paymentController.service';
+import { PaymentControllerService } from './paymentController.service';
+export * from './userController.service';
+import { UserControllerService } from './userController.service';
+export * from './webhookController.service';
+import { WebhookControllerService } from './webhookController.service';
+export const APIS = [AppointmentControllerService, AuthControllerService, ClinicalRecordControllerService, PaymentControllerService, UserControllerService, WebhookControllerService];

@@ -1,0 +1,58 @@
+<!-- Mobile Sidebar -->
+<p-sidebar [(visible)]="visible" (onHide)="onHide()" [showCloseIcon]="true" 
+           [style]="{width:'250px'}" styleClass="p-sidebar-md" [baseZIndex]="1000">
+  <div class="flex flex-col h-full">
+    <h3 class="text-lg font-semibold mb-4">Menú</h3>
+    
+    <!-- Menu Items -->
+    <div class="flex-1">
+      <div *ngFor="let item of menuItems" 
+           class="flex items-center gap-2 p-3 rounded cursor-pointer transition-colors mb-2"
+           [ngClass]="item.styleClass === 'active-menu-item' ? 
+                     'bg-sky-50 text-sky-500' : 
+                     'text-gray-700 hover:bg-gray-100'"
+           [routerLink]="item.routerLink">
+        <i [class]="item.icon + ' text-lg'"></i>
+        <span>{{item.label}}</span>
+      </div>
+    </div>
+    
+    <!-- Logout Button -->
+    <div class="mt-auto pt-4 border-t border-gray-200">
+      <div class="flex items-center gap-2 p-3 rounded cursor-pointer transition-colors text-gray-700 hover:bg-gray-100"
+           (click)="logout()">
+        <i class="pi pi-sign-out text-lg"></i>
+        <span>Cerrar sesión</span>
+      </div>
+    </div>
+  </div>
+</p-sidebar>
+
+<!-- Desktop Sidebar -->
+<div class="hidden md:block w-64 bg-white border-r border-gray-200 min-h-screen">
+  <div class="p-4 flex flex-col h-full">
+    <h3 class="text-lg font-semibold mb-6 px-2">Panel Admin</h3>
+    
+    <!-- Menu Items -->
+    <div class="flex-1 space-y-1">
+      <div *ngFor="let item of menuItems" 
+           class="flex items-center gap-2 p-3 rounded cursor-pointer transition-colors"
+           [ngClass]="item.styleClass === 'active-menu-item' ? 
+                     'bg-sky-50 text-sky-500' : 
+                     'text-gray-700 hover:bg-gray-100'"
+           [routerLink]="item.routerLink">
+        <i [class]="item.icon + ' text-lg'"></i>
+        <span>{{item.label}}</span>
+      </div>
+    </div>
+    
+    <!-- Logout Button -->
+    <div class="mt-auto pt-4 border-t border-gray-200">
+      <div class="flex items-center gap-2 p-3 rounded cursor-pointer transition-colors text-gray-700 hover:bg-gray-100"
+           (click)="logout()">
+        <i class="pi pi-sign-out text-lg"></i>
+        <span>Cerrar sesión</span>
+      </div>
+    </div>
+  </div>
+</div>

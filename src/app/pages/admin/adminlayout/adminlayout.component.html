@@ -1,0 +1,22 @@
+<div class="flex min-h-screen bg-gray-100">
+  <!-- Mobile Header -->
+  <div class="fixed top-0 left-0 right-0 z-10 bg-white shadow-sm md:hidden">
+    <div class="flex items-center justify-between p-4">
+      <button (click)="toggleSidebar()" class="text-gray-700">
+        <i class="pi pi-bars text-xl"></i>
+      </button>
+      <h1 class="text-lg font-semibold">Panel Admin</h1>
+      <button (click)="logout()" class="text-gray-700">
+        <i class="pi pi-sign-out text-xl"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <app-sidebar-menu [(visible)]="sidebarVisible"></app-sidebar-menu>
+
+  <!-- Main content -->
+  <main class="flex-1 p-8 md:p-8 mt-16 md:mt-0">
+    <router-outlet></router-outlet>
+  </main>
+</div>

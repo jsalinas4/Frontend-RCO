@@ -1,0 +1,37 @@
+<div class="bg-white rounded-xl overflow-hidden shadow-md border border-sky-100 hover:shadow-lg transition-all duration-300">
+  <div class="flex">
+    <!-- Time Section -->
+    <div class="bg-gradient-to-r from-sky-400 to-sky-500 text-white p-6 flex flex-col items-center justify-center">
+      <div class="text-2xl font-bold">{{appointment.time.split(' ')[0]}}</div>
+      <div class="text-xs uppercase tracking-wide">{{appointment.time.split(' ')[1]}}</div>
+    </div>
+    
+    <!-- Details Section -->
+    <div class="p-5 flex-1">
+      <div class="flex flex-col gap-2">
+        <div class="flex items-center gap-2 text-gray-600">
+          <i class="pi pi-calendar text-sky-400"></i>
+          <span class="text-sm">{{appointment.date}}</span>
+        </div>
+        
+        <div class="flex items-center gap-2">
+          <span class="bg-sky-50 text-sky-600 text-xs font-medium px-2.5 py-1 rounded-full">
+            {{appointment.service}}
+          </span>
+          <span class="text-xs font-medium px-2.5 py-1 rounded-full" [ngClass]="getStatusClass()">
+            {{getStatusLabel()}}
+          </span>
+        </div>
+        
+        <div class="font-medium">{{appointment.dentist.name}}</div>
+        <div class="text-sm text-gray-500">{{appointment.dentist.specialty}}</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <div class="bg-sky-50 p-3 border-t border-sky-100 flex justify-end">
+    <button pButton label="Ver más" icon="pi pi-arrow-right" iconPos="right" 
+            class="p-button-rounded"></button>
+  </div>
+</div>
